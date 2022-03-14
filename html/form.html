@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       form  div span{
+           color:red;
+       }
+       div{
+           border-bottom: 1px solid #ccc;
+           margin: auto;
+           padding-bottom: 10px;
+           padding-top: 5px;
+           width: 720px;
+       }
+       form{
+           background-color: rgb(243, 240, 240);
+           width: 720px;
+           margin: auto;
+           padding: 3rem;
+           border: solid 1px gray;
+          
+           box-shadow: 1rem 2rem 3rem rgb(240, 232, 232);
+       }
+       .title{
+           float: left;
+           width: 200px;
+           text-align: center;
+           padding-right: 10px;
+           color: black;
+           font-size: 18px;
+       }
+       .form_submit{
+           text-align: center;
+       }
+    </style>
+</head>
+<body>
+
+    <h1 align="center">Dang ky tai khoang</h1>
+    <form name="form1" onsubmit="submitform()" action="#">
+        <div>
+            <label for="textDN" class="title"> Ten dang nhap</label>
+            <input id="textDN" type="text" name="textDN" onblur="KiemtraDN()" size="30" placeholder="txtDN"/>
+            <span id="tendn">*</span>
+        </div>
+
+        <div>
+            <label for="textpw" class="title"> Mat khau</label>
+            <input id="textpw" onblur="kiemtrapassword()" type="password" name="textpw" size="30" placeholder="nhap password"/>
+            <span id="tenpw">*</span>
+        </div>
+
+
+        <div>
+            <label for="textpwc" class="title"> Nhap lai mat khau</label>
+            <input id="textpwc" onblur="kiemtrapasswordNhaplai()" type="password" name="textpwc" size="30" placeholder="textpwc"/>
+            <span id="tenpwc">*</span>
+        </div>
+
+        <h1 align="center">Thong tin ca nhan</h1>
+
+        <div>
+            <label for="hoten" class="title"> ho va ten</label>
+            <input id="hoten" type="text" name="hoten" size="30" placeholder="hoten"/>
+            <span id="hoten">* bat buoc</span>
+        </div>
+
+        <div>
+            <label for="Ngaysinh"  class="title">Ngay sinh :</label>
+            <input id="date" type="date" onblur="kiemtraNgaysinh()" name="Ngaysinh" size="30" placeholder="hoten"/>
+            <span id="textNhaynh">*</span>
+        </div>
+
+        <div class="radio-button">
+            <label for="Ngaysinh"  class="title">gioitinh:</label>
+            <input type="radio" name="gender" id="male" value="M" checked/>
+            <label for="male">Nam</label>
+            <input type="radio" name="gender" id="Female" value="M"/>
+            <label for="Female">Nu</label>
+        </div>
+
+        <div>
+            <label for="dc" class="title">dia chi</label>
+            <input id="dc" type="text" name="dc" size="30" placeholder="dia chi"/>
+            <span id="dc">* Bac buoc</span>
+        </div>
+        <div class="form_submit">
+            <button class="rgister">Dang ky</button>
+            <button class="rgister">Huy</button>
+        </div>
+
+
+    </form>
+    <script>
+
+        function KiemtraDN(){
+           var checkkytu=/(?=.*\d).{6,}/;
+           if(checkkytu.test(document.querySelector("#textDN").value.trim())==false){
+              
+               document.getElementById('tendn').innerHTML="*ten phai bac dau bang ky tu "
+               return false;
+           }
+           else{
+            document.getElementById('tendn').innerHTML="*" 
+           }
+        }
+
+        function kiemtrapassword(){
+            const mk=document.querySelector("#tenpw");
+            var checkpassword=/(?=.*\d).{6,}/
+            if(checkpassword.test(document.querySelector("#textpw").value.trim())==false){
+               mk.innerHTML='phai co chu so it nhat 6 ky tu'
+               
+               return false;
+            }
+            else{
+                mk.innerHTML='*'
+                return true;
+            }
+        }
+        function kiemtrapasswordNhaplai(){
+            const tenpwc=document.querySelector("#tenpwc");
+       
+            if(document.querySelector("#textpwc").value!=document.querySelector("#textpw").value){
+                
+                tenpwc.innerHTML="password nhap lai khong chinh xac";
+                return false;
+            }
+            else{
+                tenpwc.innerHTML="*";
+                return true;
+            }
+        }
+
+        function kiemtraNgaysinh(){
+            var ns =new Date(document.querySelector('#date').value);
+            var today=new Date();
+            if(eval(today.getFullYear()-ns.getFullYear())<=10){
+                document.getElementById('textNhaynh').innerHTML="tuoi>18";
+                return false;
+            }
+            else{
+                document.getElementById('textNhaynh').innerHTML="";
+                return true;
+            }
+        }
+        function submitform(){
+          if(KiemtraDN()==false ||  kiemtrapassword()==false || kiemtrapasswordNhaplai()==false){
+              alert('ban chua nhap day du thong tin form')
+          }
+          else{
+              const ttt1=document.getElementById("tendn").value;
+              const ttt2=document.getElementById('textpw').value;
+              const ttt3=document.getElementById('textpwc').value;
+              const w=open('FormValidation_infor.html','Ketqua');
+              w.document.write('<b>THONG TIN CA NHAN</b>');
+              w.document.write('ho ten '+ttt1 +'br');
+              w.document.write('nam sinh '+ttt2 +'br');
+          }
+        }
+     </script>
+</body>
+</html>
